@@ -9,8 +9,6 @@ const io = new Server(server, {
     cors: {
         origin: "*",
     },
-    // IMPORTANT : Forcer uniquement le polling
-    transports: ['polling']
 });
 
 io.on("connection", (socket) => {
@@ -26,6 +24,3 @@ io.on("connection", (socket) => {
     });
 });
 
-server.listen(3000, () => {
-    console.log("🚀 Serveur en écoute sur http://localhost:3000");
-});

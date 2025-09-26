@@ -14,6 +14,11 @@ io.on('connection', (socket) => {
         io.emit('response', (arg));
         console.log(arg); // 'world'
     });
+
+    socket.on('carsActivated', (arg) => {
+        io.emit('carsResponse', (arg));
+        console.log(arg); // 'world'
+    });
     socket.on("disconnect", () => {
         console.log("Client déconnecté:", socket.id);
     });

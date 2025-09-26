@@ -1,29 +1,25 @@
 // server.js
-const express = require("express");
-const http = require("http");
-const { Server } = require("socket.io");
+import express from 'express';
+import { createServer } from 'node:http';
+import {Server} from "socket.io";
 
 const app = express();
-const server = http.createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: "*",
-    },
-});
+const server = createServer(app);
+const io = new Server(server);
 
-io.on("connection", (socket) => {
+io.on('connection', (socket) => {
     console.log("Un client connecté:", socket.id);
 
-    socket.on("updatePosition", (data) => {
-        console.log("Nouvelle position:", data);
-        io.emit("positionUpdated", data);
+    socket.on('question', (arg) => {
+        io.emit('response', (arg));
+        console.log(arg); // 'world'
     });
-
     socket.on("disconnect", () => {
         console.log("Client déconnecté:", socket.id);
     });
 });
 
+
 server.listen(3000, () => {
-    console.log("🚀 Serveur en écoute sur http://localhost:3000");
+    console.log('server running at http://localhost:3000');
 });
